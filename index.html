@@ -404,6 +404,7 @@
                 <li><a href="#chapter4">Impact</a></li>
                 <li><a href="#chapter5">Future</a></li>
                 <li><a href="#ai">AI Assistant</a></li>
+                <li><a href="#register">Register</a></li>
             </ul>
             <button id="theme-toggle">🌙</button>
             <button class="mobile-toggle">☰</button>
@@ -556,6 +557,38 @@
                     <input type="text" class="chat-input" id="chat-input" placeholder="E.g., Summarize the Market Trends...">
                     <button class="chat-btn" id="chat-send">Send</button>
                 </div>
+            </div>
+        </section>
+
+        <!-- PAGE: REGISTER -->
+        <section id="page-register" class="page">
+            <div class="reveal text-center" style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; text-align: center;">
+                <p class="mono text-coral">Secure Onboarding</p>
+                <h2>Network Registration</h2>
+                <p style="margin: 0">Create your decentralized identity to access Meridian analytics.</p>
+            </div>
+            
+            <div class="reveal card" style="max-width: 500px; margin: 0 auto; padding: 2.5rem;">
+                <form id="register-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div>
+                        <label class="mono text-secondary" style="font-size: 0.85rem; margin-bottom: 0.5rem; display: block;">Full Name</label>
+                        <input type="text" required class="chat-input" style="width: 100%; border-radius: 12px; padding: 0.8rem 1rem;" placeholder="e.g. Satoshi Nakamoto">
+                    </div>
+                    <div>
+                        <label class="mono text-secondary" style="font-size: 0.85rem; margin-bottom: 0.5rem; display: block;">Email Address</label>
+                        <input type="email" required class="chat-input" style="width: 100%; border-radius: 12px; padding: 0.8rem 1rem;" placeholder="name@domain.com">
+                    </div>
+                    <div>
+                        <label class="mono text-secondary" style="font-size: 0.85rem; margin-bottom: 0.5rem; display: block;">Organization</label>
+                        <input type="text" class="chat-input" style="width: 100%; border-radius: 12px; padding: 0.8rem 1rem;" placeholder="Optional">
+                    </div>
+                    <div>
+                        <label class="mono text-secondary" style="font-size: 0.85rem; margin-bottom: 0.5rem; display: block;">Secure Password</label>
+                        <input type="password" required class="chat-input" style="width: 100%; border-radius: 12px; padding: 0.8rem 1rem;" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 1rem;">Create Identity</button>
+                    <div id="register-success" class="text-teal" style="display: none; text-align: center; margin-top: 1rem; font-weight: 500;">Registration successful! Welcome to the network.</div>
+                </form>
             </div>
         </section>
     </main>
@@ -819,6 +852,32 @@
 
         chatSend.addEventListener('click', handleChat);
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
+
+        // --- 6. REGISTRATION FORM ---
+        const registerForm = document.getElementById('register-form');
+        const registerSuccess = document.getElementById('register-success');
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = registerForm.querySelector('button[type="submit"]');
+                const originalText = btn.textContent;
+                btn.textContent = 'Processing...';
+                btn.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    registerForm.reset();
+                    btn.textContent = originalText;
+                    btn.style.opacity = '1';
+                    btn.style.display = 'none';
+                    registerSuccess.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        btn.style.display = 'flex';
+                        registerSuccess.style.display = 'none';
+                    }, 5000);
+                }, 1500);
+            });
+        }
     </script>
 </body>
 </html>
